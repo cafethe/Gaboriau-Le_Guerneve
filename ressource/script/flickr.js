@@ -1,32 +1,45 @@
 $(document).ready(function() {
 
+// création du tabs pour les onglets
   $( function() {
     $( "#tabs" ).tabs();
   });
 
+  //création d'un datepicker
+  $( function() {
+    $("#datepicker").datepicker();
+  } );
+
+  //création du datatable
   $(document).ready( function () {
-    $('#table_id').DataTable();
+    $("#table").DataTable();
   });
 
-  $(".icon").button({icons: {primary: "ui-icon-search"}});
-
-  $("#soumettre").on('click', function(event) {
+  // gère l'affichages des images dans les différents onglets
+  $("#icon").on('click', function(event) {
     $.ajax({
       url:'http://api.flickr.com/services/feeds/photos_public.gne',
       type:'GET',
       dataType:'jsonp',
-      jsonp: 'jsoncallback', // a renseigner d'après la doc du service, par défaut callback
+      jsonp: 'jsoncallback',
       data:'tags= '+encodeURIComponent($('#commune').val())+'&tagmode=any&format=json',
       success:function(data){
         $("#images").html("");
+
+        // nettoie le tableau
+        $("#tableau tr").remove();
+
+        // remplit l'onglet photo avec les photos
         $.each(data.items, function(i,item){
           $("<img/>").attr({
             src: item.media.m,
             id: i
           }).appendTo("#images");
           $("<br/>").appendTo("#images");
-          if ( i == $('#nb_photo').val()-1) return false;
+          if ( i == $('#nombre').val()-1) return false;
         });
+
+        // remplit le tableau dans l'onglet tableau
         $.each(data.items, function(i,item){
           $("<tr>").attr("id", "tr"+i).appendTo("#tableau");
           $("<td>").attr("class", "td1").appendTo("#tr"+i);
@@ -41,17 +54,20 @@ $(document).ready(function() {
           $("#tr"+ i +" .td4").html(item.date_taken.split("T")[0]);
           $("#tr"+ i +" .td5").html(item.date_taken.split("T")[1].split("-")[0]);
 
-          if ( i == $('#nb_photo').val()-1) return false;
+          if ( i == $('#nombre').val()-1) return false;
         });
+
+        // afficher une fenêtre modale si la ville n'a pas de photo
         if($("#images").html()==""){
           $("<div>").attr({
             id: "dialog",
             title: "Avertissement"
           }).appendTo("#images");
-          $("#dialog").html("<p>Aucune photo Flick correspondante.</p>");
+          $("#dialog").html("<p>Cette ville ne possède pas de photos ou elle n'existe pas</p>");
           $( "#dialog" ).dialog();
         }
 
+        //affiche les informations d'une image lorsque l'on clique dessus
         $("#images img").on('click', function(event) {
           $.each(data.items, function(i,item){
             if(item.media.m==event.target.src) {

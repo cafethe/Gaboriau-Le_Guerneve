@@ -22,28 +22,48 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
 </head>
 
-<body>
+<body style="width : 80%; margin-left: auto;
+margin-right: auto;">
   <form id="form">
-    Afficher les photos de quelle commune ?</br>
+    Veuillez saisir le nom d'une commune</br>
     <input id="commune" type="text" value="">
-    <select id="nb_photo" type="select" value="">
+    <select id="nombre" type="select" value="">
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
       <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
       <option>10</option>
+      <option>11</option>
+      <option>12</option>
+      <option>13</option>
+      <option>14</option>
       <option>15</option>
+      <option>16</option>
+      <option>17</option>
+      <option>18</option>
+      <option>19</option>
       <option>20</option>
-    </select></br>
-    <input id="soumettre" type="button" value="Envoyer">
+    </select>
+    <a href="#"><span id="icon" class="ui-icon ui-icon-search" style="-ms-transform: scale(2); -webkit-transform: scale(2);
+  transform: scale(2);"></span></a><br/>
+    <p>Date: <input type="text" id="datepicker"></p>
+    </br>
   </form>
   <div id="tabs">
     <ul>
-      <li><a href="#tabs-1">Vue photo</a></li>
-      <li><a href="#tabs-2">Vue table</a></li>
+      <li><a href="#phototabs">Vue photo</a></li>
+      <li><a href="#tableautabs">Vue table</a></li>
     </ul>
-    <div id="tabs-1">
+    <div id="phototabs">
       <div id="images"></div>
     </div>
-    <div id="tabs-2">
-      <table id="table_id" class="display">
+    <div id="tableautabs">
+      <table id="table" class="display">
         <thead>
           <tr>
             <th>Photographie</th>
@@ -54,7 +74,6 @@
           </tr>
         </thead>
         <tbody id="tableau">
-
         </tbody>
       </table>
     </div>
