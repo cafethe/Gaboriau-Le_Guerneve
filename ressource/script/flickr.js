@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     $( function() {
-        $("#onglet").tabs(); permet de créer des onglets
+        $( "#tabs" ).tabs();
     });
 
     $(document).ready( function () {
@@ -15,7 +15,7 @@ $(document).ready(function() {
             url:'http://api.flickr.com/services/feeds/photos_public.gne',
             type:'GET',
             dataType:'jsonp',
-            jsonp: 'jsoncallback',
+            jsonp: 'jsoncallback', // a renseigner d'après la doc du service, par défaut callback
             data:'tags= '+encodeURIComponent($('#commune').val())+'&tagmode=any&format=json',
             success:function(data){
                 $("#images").html("");
@@ -66,7 +66,7 @@ $(document).ready(function() {
                 });
             },
             error: function(resultat,statut,erreur){
-                alert("Error");
+                alert("erreur");
             },
         });
     });
